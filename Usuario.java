@@ -1,11 +1,11 @@
-public class Pessoa {
-    private int idP;
+public class Usuario {
+    private int idUser;
     private String cpf, nome, email, senha;
-    public int getIdP() {
-        return idP;
+    public int getidUser() {
+        return idUser;
     }
-    public void setIdP(int idP) {
-        this.idP = idP;
+    public void setidUser(int idUser) {
+        this.idUser = idUser;
     }
     public String getCpf() {
         return cpf;
@@ -33,6 +33,6 @@ public class Pessoa {
     }
     @Override
     public String toString() {
-        return "ID: " + idP + ", CPF: " + cpf + ", Nome: " + nome + ", Email: " + email + ", Senha: " + senha;
+        return "ID: " + idUser + ", CPF: " + cpf + ", Nome: " + nome + ", Email: " + email + ", Senha: " + senha;
     }
 }

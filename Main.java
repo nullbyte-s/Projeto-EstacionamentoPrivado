@@ -3,25 +3,25 @@ public class Main {
     public static void main(String[] args) {
         int repetir;
         Scanner sc = new Scanner(System.in);
-        CadastroPessoa cp = new CadastroPessoa();
-        CadastroVeiculo cv = new CadastroVeiculo();
+        CadastroUsuario cadastroUsuario = new CadastroUsuario();
+        CadastroVeiculo cadastroVeiculo = new CadastroVeiculo();
 
         do {
             System.out.println("---------- Bem-vindo(a) ao Estacionamento ----------");
             System.out.println();
             System.out.println("Primeiro acesso? (1) Sim | (2) Não -> ");
             int primeiroAcesso = sc.nextInt();
-            int proximoIdPessoa = 0;
+            int proximoIdUser = 0;
 
             if (primeiroAcesso == 1) {
                 System.out.println();
                 System.out.println("Vamos realizar seu cadastro.");
                 System.out.println();
 
-                Pessoa pessoa = criarPessoa(sc);
-                proximoIdPessoa = cp.gerarId();
-                pessoa.setIdP(proximoIdPessoa);
-                cp.cadastrarPessoa(pessoa);
+                Usuario usuario = criarUsuario(sc);
+                proximoIdUser = cadastroUsuario.gerarId();
+                usuario.setidUser(proximoIdUser);
+                cadastroUsuario.cadastrarUsuario(usuario);
                 System.out.println();
 
                 System.out.println("Qual tipo de usuário você deseja cadastrar?");
@@ -35,65 +35,65 @@ public class Main {
                     System.out.println("Você escolheu cadastrar Funcionário.");
                     System.out.println("Informe o ID de Funcionário:");
                     funcionario.setIdFunc(Integer.parseInt(sc.next()));
-                    funcionario.setIdP(proximoIdPessoa);
+                    funcionario.setidUser(proximoIdUser);
                 } else if (escolherUsuario == 3){
-                    PessoaPremium premium = new PessoaPremium();
+                    UsuarioPremium premium = new UsuarioPremium();
                     System.out.println("Você escolheu cadastrar Usuário Premium.");
                     System.out.println("Informe o ID de Usuário Premium:");
                     premium.setIdPPre(Integer.parseInt(sc.next()));
-                    premium.setIdP(proximoIdPessoa);
+                    premium.setidUser(proximoIdUser);
                 } else if (escolherUsuario == 4){
                     Admin admin = new Admin();
                     System.out.println("Você escolheu cadastrar Administrador.");
                     System.out.println("Informe o ID de Administrador:");
                     admin.setIdAdm(Integer.parseInt(sc.next()));
-                    admin.setIdP(proximoIdPessoa);
+                    admin.setidUser(proximoIdUser);
                 } else {
                     System.out.println("Opção inválida.");
                 }
 
                 System.out.println();
-                Pessoa pessoaCadastrada = cp.buscarPorId(pessoa.getIdP());
+                Usuario usuarioCadastrada = cadastroUsuario.buscarPorId(usuario.getidUser());
 
-                if (pessoaCadastrada != null) {
-                    System.out.println("Cadastro finalizado: " + pessoaCadastrada);
+                if (usuarioCadastrada != null) {
+                    System.out.println("Cadastro finalizado: " + usuarioCadastrada);
                 } else {
-                    System.out.println("Pessoa não encontrada.");
+                    System.out.println("Usuário não encontrado.");
                 }
 
                 System.out.println();
-                cp.listarPessoas();
+                cadastroUsuario.listarPessoas();
                 System.out.println();
 
-                System.out.println("Atualizar os dados da pessoa recém-cadastrada? (1) Sim | (2) Não -> ");
+                System.out.println("Atualizar os dados do usuário recém-cadastrada? (1) Sim | (2) Não -> ");
                 int opcaoAtualizar = sc.nextInt();
 
                 if (opcaoAtualizar == 1) {
-                    Pessoa pessoaAtualizada = criarPessoa(sc);
-                    pessoaAtualizada.setIdP(pessoaCadastrada.getIdP());
-                    cp.atualiza(pessoaAtualizada);
+                    Usuario usuarioAtualizado = criarUsuario(sc);
+                    usuarioAtualizado.setidUser(usuarioCadastrada.getidUser());
+                    cadastroUsuario.atualiza(usuarioAtualizado);
                 } else {
                     System.out.println("Tudo bem! Seguindo...");
                 }
 
                 System.out.println();
 
-                System.out.println("Deletar uma pessoa? (1) Sim / (2) Não -> ");
+                System.out.println("Deletar um usuário? (1) Sim / (2) Não -> ");
                 int opcaoExcluir = sc.nextInt();
 
                 if (opcaoExcluir == 1) {
-                    System.out.println("Informe o ID da pessoa que deseja excluir:");
-                    int idPessoaExcluir = sc.nextInt();
-                    cp.exclui(idPessoaExcluir);
+                    System.out.println("Informe o ID do usuário que deseja excluir:");
+                    int idUserExcluir = sc.nextInt();
+                    cadastroUsuario.exclui(idUserExcluir);
                 } else {
                     System.out.println("Tudo bem! Seguindo...");
                 }
 
-                System.out.println("Deseja limpar toda a tabela Pessoa? (1) Sim / (2) Não -> ");
+                System.out.println("Deseja limpar toda a tabela Usuario? (1) Sim / (2) Não -> ");
                 int opcaoLimparTabela = sc.nextInt();
 
                 if (opcaoLimparTabela == 1) {
-                    cp.limparTabela();
+                    cadastroUsuario.limparTabela();
                 } else {
                     System.out.println("Tudo bem! Seguindo...");
                 }
@@ -101,7 +101,7 @@ public class Main {
             } else if (primeiroAcesso == 2) {
                 System.out.println("Informe seu CPF para realizar o login:");
                 String cpfLogin = sc.next();
-                if (realizarLogin(cp, cpfLogin)) {
+                if (realizarLogin(cadastroUsuario, cpfLogin)) {
                     System.out.println("Login realizado com sucesso!");
                 } else {
                     System.out.println("CPF não cadastrado. Por favor, cadastre-se.");
@@ -128,39 +128,39 @@ public class Main {
 //                            System.out.println("Informe o ID de Administrador:");
 //                            admin.setIdAdm(Integer.parseInt(sc.next()));
 //                            System.out.println();
-//                            Pessoa pessoa = criarPessoa(sc);
-//                            cp.cadastrarPessoa(pessoa);
+//                            Pessoa usuario = criarUsuario(sc);
+//                            cadastroUsuario.cadastrarUsuario(usuario);
 //                        } else if (escolherUsuario == 2){
 //                            PessoaPremium premium = new PessoaPremium();
 //                            System.out.println("Você escolheu cadastrar Funcionário.");
 //                            System.out.println("Informe o ID de Funcionário:");
 //                            premium.setIdPPre(Integer.parseInt(sc.next()));
 //                            System.out.println();
-//                            Pessoa pessoa = criarPessoa(sc);
-//                            cp.cadastrarPessoa(pessoa);
+//                            Pessoa usuario = criarUsuario(sc);
+//                            cadastroUsuario.cadastrarUsuario(usuario);
 //                        } else if (escolherUsuario == 3){
 //                            System.out.println("Você escolheu cadastrar Pessoa Premium.");
 //                            System.out.println();
-//                            Pessoa pessoa = criarPessoa(sc);
-//                            cp.cadastrarPessoa(pessoa);
+//                            Pessoa usuario = criarUsuario(sc);
+//                            cadastroUsuario.cadastrarUsuario(usuario);
 //                        } else {
 //                            System.out.println("Opção inválida.");
 //                        }
                         break;
                     case 2:
                         Carro carro = criarCarro(sc);
-                        cv.cadastrarVeiculo(carro);
+                        cadastroVeiculo.cadastrarVeiculo(carro);
                         break;
                     case 3:
-                        cp.listarPessoas();
+                        cadastroUsuario.listarPessoas();
                         break;
                     case 4:
-                        cv.listarVeiculos();
+                        cadastroVeiculo.listarVeiculos();
                         break;
                     case 5:
                         System.out.println("Informe a placa do carro: ");
                         String placaVerificar = sc.next();
-                        verificarPlaca(cv, placaVerificar);
+                        verificarPlaca(cadastroVeiculo, placaVerificar);
                         break;
                     default:
                         System.out.println("Opção inválida.");
@@ -172,33 +172,33 @@ public class Main {
             repetir = sc.nextInt();
         } while (repetir==0);
     }
-    public static boolean realizarLogin(CadastroPessoa cp, String cpfLogin) {
-        for (Pessoa pessoa : cp.getPessoas()) {
-            if (pessoa.getCpf().equals(cpfLogin)) {
+    public static boolean realizarLogin(CadastroUsuario cadastroUsuario, String cpfLogin) {
+        for (Usuario usuario : cadastroUsuario.getPessoas()) {
+            if (usuario.getCpf().equals(cpfLogin)) {
                 return true;
             }
         }
         return false;
     }
-    public static void verificarPlaca(CadastroVeiculo cv, String placaVerificar) {
-        boolean carroCadastrado = cv.verificarCarroCadastrado(placaVerificar);
+    public static void verificarPlaca(CadastroVeiculo cadastroVeiculo, String placaVerificar) {
+        boolean carroCadastrado = cadastroVeiculo.verificarCarroCadastrado(placaVerificar);
         if (carroCadastrado) {
             System.out.println("O carro com a placa " + placaVerificar + " está cadastrado.");
         } else {
             System.out.println("O carro com a placa " + placaVerificar + " não está cadastrado.");
         }
     }
-    public static Pessoa criarPessoa(Scanner sc) {
-        Pessoa pessoa = new Pessoa();
+    public static Usuario criarUsuario(Scanner sc) {
+        Usuario usuario = new Usuario();
         System.out.println("Informe o CPF:");
-        pessoa.setCpf(sc.next());
+        usuario.setCpf(sc.next());
         System.out.println("Informe o nome:");
-        pessoa.setNome(sc.next());
+        usuario.setNome(sc.next());
         System.out.println("Informe o e-mail:");
-        pessoa.setEmail(sc.next());
+        usuario.setEmail(sc.next());
         System.out.println("Informe a senha:");
-        pessoa.setSenha(sc.next());
-        return pessoa;
+        usuario.setSenha(sc.next());
+        return usuario;
     }
     public static Carro criarCarro(Scanner sc) {
         Carro carro = new Carro();

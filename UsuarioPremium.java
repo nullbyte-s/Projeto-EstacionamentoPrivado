@@ -1,4 +1,4 @@
-public class PessoaPremium extends Pessoa{
+public class UsuarioPremium extends Usuario {
     private int idPPre;
     public int getIdPPre(){return idPPre;}
     public void setIdPPre(int idPPre){this.idPPre = idPPre;}

@@ -6,40 +6,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CadastroPessoaDAO {
+public class CadastroUsuarioDAO {
     private Connection connection;
 
-    public CadastroPessoaDAO() {
+    public CadastroUsuarioDAO() {
         this.connection = new Conexao().GeraConexao();
     }
 
     // Create
-    public void adiciona(@NotNull Pessoa pessoa) {
-        if (pessoaJaExiste(pessoa.getIdP())) {
-            System.out.println("Pessoa com id " + pessoa.getIdP() + " já existe na tabela.");
+    public void adiciona(@NotNull Usuario usuario) {
+        if (usuarioJaExiste(usuario.getidUser())) {
+            System.out.println("Usuário com id " + usuario.getidUser() + " já existe na tabela.");
             return;
         }
-        String sql = "INSERT INTO Pessoa(idP, cpf, email, nome, senha) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO Usuario(idUser, cpf, email, nome, senha) VALUES(?,?,?,?,?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, pessoa.getIdP());
-            stmt.setString(2, pessoa.getCpf());
-            stmt.setString(3, pessoa.getEmail());
-            stmt.setString(4, pessoa.getNome());
-            stmt.setString(5, pessoa.getSenha());
+            stmt.setInt(1, usuario.getidUser());
+            stmt.setString(2, usuario.getCpf());
+            stmt.setString(3, usuario.getEmail());
+            stmt.setString(4, usuario.getNome());
+            stmt.setString(5, usuario.getSenha());
             stmt.execute();
             stmt.close();
-            System.out.println("Pessoa cadastrada com sucesso!");
+            System.out.println("Usuário cadastrado com sucesso!");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private boolean pessoaJaExiste(int idP) {
-    // Verifica se a pessoa já existe no banco de dados
-        String sql = "SELECT COUNT(*) FROM pessoa WHERE idP = ?";
+    private boolean usuarioJaExiste(int idUser) {
+    // Verifica se o usuário já existe no banco de dados
+        String sql = "SELECT COUNT(*) FROM usuario WHERE idUser = ?";
         try { PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, idP);
+            stmt.setInt(1, idUser);
             ResultSet resultSet = stmt.executeQuery();
             resultSet.next();
             int count = resultSet.getInt(1);
@@ -50,34 +50,34 @@ public class CadastroPessoaDAO {
     }
 
     // Read
-    public ArrayList<Pessoa> listar() {
-        ArrayList<Pessoa> pessoas = new ArrayList<>();
-        String sql = "SELECT idP, cpf, email, nome, senha FROM pessoa";
+    public ArrayList<Usuario> listar() {
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        String sql = "SELECT idUser, cpf, email, nome, senha FROM usuario";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
-                Pessoa p = new Pessoa();
-                p.setIdP(resultSet.getInt("idP"));
+                Usuario p = new Usuario();
+                p.setidUser(resultSet.getInt("idUser"));
                 p.setCpf(resultSet.getString("cpf"));
                 p.setEmail(resultSet.getString("email"));
                 p.setNome(resultSet.getString("nome"));
                 p.setSenha(resultSet.getString("senha"));
-                pessoas.add(p);
+                usuarios.add(p);
             }
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return pessoas;
+        return usuarios;
     }
 
     // Read por ID
-    public Pessoa buscarPorId(int idP) { String sql = "SELECT idP, cpf, email, nome, senha FROM pessoa WHERE idP = ?";
+    public Usuario buscarPorId(int idUser) { String sql = "SELECT idUser, cpf, email, nome, senha FROM usuario WHERE idUser = ?";
         try { PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, idP); ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()) { Pessoa p = new Pessoa();
-                p.setIdP(resultSet.getInt("idP"));
+            stmt.setInt(1, idUser); ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) { Usuario p = new Usuario();
+                p.setidUser(resultSet.getInt("idUser"));
                 p.setCpf(resultSet.getString("cpf"));
                 p.setEmail(resultSet.getString("email"));
                 p.setNome(resultSet.getString("nome"));
@@ -95,17 +95,17 @@ public class CadastroPessoaDAO {
     }
 
     // Update
-    public void atualiza(@NotNull Pessoa p) {
-        String sql = "UPDATE pessoa SET cpf = ?, email = ?, nome = ?, senha = ? WHERE idP = ?";
+    public void atualiza(@NotNull Usuario p) {
+        String sql = "UPDATE usuario SET cpf = ?, email = ?, nome = ?, senha = ? WHERE idUser = ?";
         try { PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, p.getCpf());
             stmt.setString(2, p.getEmail());
             stmt.setString(3, p.getNome());
             stmt.setString(4, p.getSenha());
-            stmt.setInt(5, p.getIdP());
+            stmt.setInt(5, p.getidUser());
             stmt.executeUpdate();
             stmt.close();
-            System.out.println("Pessoa atualizada com sucesso!");
+            System.out.println("Usuário atualizado com sucesso!");
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
@@ -113,13 +113,13 @@ public class CadastroPessoaDAO {
     }
 
     // Delete
-    public void exclui(int idP) {
-        String sql = "DELETE FROM pessoa WHERE idP = ?";
+    public void exclui(int idUser) {
+        String sql = "DELETE FROM usuario WHERE idUser = ?";
         try { PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, idP);
+            stmt.setInt(1, idUser);
             stmt.executeUpdate();
             stmt.close();
-            System.out.println("Pessoa excluída com sucesso!");
+            System.out.println("Usuário excluído com sucesso!");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -127,12 +127,12 @@ public class CadastroPessoaDAO {
 
     // 💣 Nuke 💣
     public void limparTabela() {
-        String sql = "DELETE FROM pessoa";
+        String sql = "DELETE FROM usuario";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.executeUpdate();
             stmt.close();
-            System.out.println("Tabela Pessoa limpa com sucesso!");
+            System.out.println("Tabela Usuário limpa com sucesso!");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -140,7 +140,7 @@ public class CadastroPessoaDAO {
 
     // Gera ID automaticamente
     public int gerarId() {
-        String sql = "SELECT MAX(idP) + 1 AS proximoId FROM pessoa";
+        String sql = "SELECT MAX(idUser) + 1 AS proximoId FROM usuario";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultSet = stmt.executeQuery();
