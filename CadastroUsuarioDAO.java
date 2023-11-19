@@ -1,5 +1,4 @@
 import org.jetbrains.annotations.NotNull;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,14 +18,15 @@ public class CadastroUsuarioDAO {
             System.out.println("Usuário com id " + usuario.getidUser() + " já existe na tabela.");
             return;
         }
-        String sql = "INSERT INTO Usuario(idUser, cpf, email, nome, senha) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO Usuario(idUser, userLevel, cpf, email, nome, senha) VALUES(?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, usuario.getidUser());
-            stmt.setString(2, usuario.getCpf());
-            stmt.setString(3, usuario.getEmail());
-            stmt.setString(4, usuario.getNome());
-            stmt.setString(5, usuario.getSenha());
+            stmt.setInt(2, usuario.getUserLevel());
+            stmt.setString(3, usuario.getCpf());
+            stmt.setString(4, usuario.getEmail());
+            stmt.setString(5, usuario.getNome());
+            stmt.setString(6, usuario.getSenha());
             stmt.execute();
             stmt.close();
             System.out.println("Usuário cadastrado com sucesso!");
@@ -52,18 +52,19 @@ public class CadastroUsuarioDAO {
     // Read
     public ArrayList<Usuario> listar() {
         ArrayList<Usuario> usuarios = new ArrayList<>();
-        String sql = "SELECT idUser, cpf, email, nome, senha FROM usuario";
+        String sql = "SELECT idUser, userLevel, cpf, email, nome, senha FROM usuario";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
-                Usuario p = new Usuario();
-                p.setidUser(resultSet.getInt("idUser"));
-                p.setCpf(resultSet.getString("cpf"));
-                p.setEmail(resultSet.getString("email"));
-                p.setNome(resultSet.getString("nome"));
-                p.setSenha(resultSet.getString("senha"));
-                usuarios.add(p);
+                Usuario user = new Usuario();
+                user.setidUser(resultSet.getInt("idUser"));
+                user.setUserLevel(resultSet.getInt("userLevel"));
+                user.setCpf(resultSet.getString("cpf"));
+                user.setEmail(resultSet.getString("email"));
+                user.setNome(resultSet.getString("nome"));
+                user.setSenha(resultSet.getString("senha"));
+                usuarios.add(user);
             }
             stmt.close();
         } catch (SQLException e) {
@@ -73,17 +74,18 @@ public class CadastroUsuarioDAO {
     }
 
     // Read por ID
-    public Usuario buscarPorId(int idUser) { String sql = "SELECT idUser, cpf, email, nome, senha FROM usuario WHERE idUser = ?";
+    public Usuario buscarPorId(int idUser) { String sql = "SELECT idUser, userLevel, cpf, email, nome, senha FROM usuario WHERE idUser = ?";
         try { PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, idUser); ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()) { Usuario p = new Usuario();
-                p.setidUser(resultSet.getInt("idUser"));
-                p.setCpf(resultSet.getString("cpf"));
-                p.setEmail(resultSet.getString("email"));
-                p.setNome(resultSet.getString("nome"));
-                p.setSenha(resultSet.getString("senha"));
+            if (resultSet.next()) { Usuario user = new Usuario();
+                user.setidUser(resultSet.getInt("idUser"));
+                user.setUserLevel(resultSet.getInt("userLevel"));
+                user.setCpf(resultSet.getString("cpf"));
+                user.setEmail(resultSet.getString("email"));
+                user.setNome(resultSet.getString("nome"));
+                user.setSenha(resultSet.getString("senha"));
                 stmt.close();
-                return p;
+                return user;
             } else {
                 stmt.close();
                 return null;
@@ -132,7 +134,7 @@ public class CadastroUsuarioDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.executeUpdate();
             stmt.close();
-            System.out.println("Tabela Usuário limpa com sucesso!");
+            System.out.println("Tabela Usuario limpa com sucesso!");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -144,7 +146,6 @@ public class CadastroUsuarioDAO {
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultSet = stmt.executeQuery();
-
             if (resultSet.next()) {
                 return resultSet.getInt("proximoId");
             } else {
@@ -154,6 +155,4 @@ public class CadastroUsuarioDAO {
             throw new RuntimeException(e);
         }
     }
-
-
 }

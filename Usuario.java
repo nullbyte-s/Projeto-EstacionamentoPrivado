@@ -1,5 +1,5 @@
 public class Usuario {
-    private int idUser;
+    private int idUser, userLevel;
     private String cpf, nome, email, senha;
     public int getidUser() {
         return idUser;
@@ -7,6 +7,8 @@ public class Usuario {
     public void setidUser(int idUser) {
         this.idUser = idUser;
     }
+    public int getUserLevel() { return userLevel; }
+    public void setUserLevel(int userLevel) { this.userLevel = userLevel; }
     public String getCpf() {
         return cpf;
     }
@@ -33,6 +35,6 @@ public class Usuario {
     }
     @Override
     public String toString() {
-        return "ID: " + idUser + ", CPF: " + cpf + ", Nome: " + nome + ", Email: " + email + ", Senha: " + senha;
+        return new StringBuilder().append("ID: ").append(idUser).append(", Nível: ").append(userLevel).append(", CPF: ").append(cpf).append(", Nome: ").append(nome).append(", Email: ").append(email).append(", Senha: ").append(senha).toString();
     }
 }

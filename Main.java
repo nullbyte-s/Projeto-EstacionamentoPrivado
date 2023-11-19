@@ -21,56 +21,61 @@ public class Main {
                 Usuario usuario = criarUsuario(sc);
                 proximoIdUser = cadastroUsuario.gerarId();
                 usuario.setidUser(proximoIdUser);
-                cadastroUsuario.cadastrarUsuario(usuario);
-                System.out.println();
 
                 System.out.println("Qual tipo de usuário você deseja cadastrar?");
-                System.out.println("(1) Usuário | (2) Funcionário | (3) Usuário Premium | (4) Administrador");
+                System.out.println("(1) Usuário | (2) Usuário Premium | (3) Usuário Premium | (4) Administrador");
                 System.out.println("-> ");
                 int escolherUsuario = sc.nextInt();
                 if (escolherUsuario == 1){
                     System.out.println("Você escolheu cadastrar Usuário.");
+                    usuario.setUserLevel(1);
                 } else if (escolherUsuario == 2){
-                    Funcionario funcionario = new Funcionario();
-                    System.out.println("Você escolheu cadastrar Funcionário.");
-                    System.out.println("Informe o ID de Funcionário:");
-                    funcionario.setIdFunc(Integer.parseInt(sc.next()));
-                    funcionario.setidUser(proximoIdUser);
-                } else if (escolherUsuario == 3){
-                    UsuarioPremium premium = new UsuarioPremium();
+//                    UsuarioPremium premium = new UsuarioPremium();
                     System.out.println("Você escolheu cadastrar Usuário Premium.");
                     System.out.println("Informe o ID de Usuário Premium:");
-                    premium.setIdPPre(Integer.parseInt(sc.next()));
-                    premium.setidUser(proximoIdUser);
+//                    premium.setIdPPre(Integer.parseInt(sc.next()));
+//                    premium.setidUser(proximoIdUser);
+                    usuario.setUserLevel(2);
+                } else if (escolherUsuario == 3){
+//                    Funcionario funcionario = new Funcionario();
+                    System.out.println("Você escolheu cadastrar Funcionário.");
+//                    System.out.println("Informe o ID de Funcionário:");
+//                    funcionario.setIdFunc(Integer.parseInt(sc.next()));
+//                    funcionario.setidUser(proximoIdUser);
+                    usuario.setUserLevel(3);
                 } else if (escolherUsuario == 4){
-                    Admin admin = new Admin();
+//                    Admin admin = new Admin();
                     System.out.println("Você escolheu cadastrar Administrador.");
-                    System.out.println("Informe o ID de Administrador:");
-                    admin.setIdAdm(Integer.parseInt(sc.next()));
-                    admin.setidUser(proximoIdUser);
+//                    System.out.println("Informe o ID de Administrador:");
+//                    admin.setIdAdm(Integer.parseInt(sc.next()));
+//                    admin.setidUser(proximoIdUser);
+                    usuario.setUserLevel(4);
                 } else {
                     System.out.println("Opção inválida.");
                 }
 
+                cadastroUsuario.cadastrarUsuario(usuario);
                 System.out.println();
-                Usuario usuarioCadastrada = cadastroUsuario.buscarPorId(usuario.getidUser());
 
-                if (usuarioCadastrada != null) {
-                    System.out.println("Cadastro finalizado: " + usuarioCadastrada);
+                System.out.println();
+                Usuario usuarioCadastrado = cadastroUsuario.buscarPorId(usuario.getidUser());
+
+                if (usuarioCadastrado != null) {
+                    System.out.println("Cadastro finalizado: " + usuarioCadastrado);
                 } else {
                     System.out.println("Usuário não encontrado.");
                 }
 
                 System.out.println();
-                cadastroUsuario.listarPessoas();
+                cadastroUsuario.listarUsuarios();
                 System.out.println();
 
-                System.out.println("Atualizar os dados do usuário recém-cadastrada? (1) Sim | (2) Não -> ");
+                System.out.println("Atualizar os dados do usuário recém-cadastrado? (1) Sim | (2) Não -> ");
                 int opcaoAtualizar = sc.nextInt();
 
                 if (opcaoAtualizar == 1) {
                     Usuario usuarioAtualizado = criarUsuario(sc);
-                    usuarioAtualizado.setidUser(usuarioCadastrada.getidUser());
+                    usuarioAtualizado.setidUser(usuarioCadastrado.getidUser());
                     cadastroUsuario.atualiza(usuarioAtualizado);
                 } else {
                     System.out.println("Tudo bem! Seguindo...");
@@ -152,7 +157,7 @@ public class Main {
                         cadastroVeiculo.cadastrarVeiculo(carro);
                         break;
                     case 3:
-                        cadastroUsuario.listarPessoas();
+                        cadastroUsuario.listarUsuarios();
                         break;
                     case 4:
                         cadastroVeiculo.listarVeiculos();
@@ -173,7 +178,7 @@ public class Main {
         } while (repetir==0);
     }
     public static boolean realizarLogin(CadastroUsuario cadastroUsuario, String cpfLogin) {
-        for (Usuario usuario : cadastroUsuario.getPessoas()) {
+        for (Usuario usuario : cadastroUsuario.getUsuarios()) {
             if (usuario.getCpf().equals(cpfLogin)) {
                 return true;
             }

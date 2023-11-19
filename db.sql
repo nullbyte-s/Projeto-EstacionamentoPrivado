@@ -13,6 +13,7 @@ USE `EstacionamentoPrivado` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `EstacionamentoPrivado`.`Usuario` (
   `idUser` INT NOT NULL,
+  `userLevel` INT NULL DEFAULT NULL,
   `cpf` VARCHAR(20) NULL DEFAULT NULL,
   `nome` VARCHAR(50) NULL DEFAULT NULL,
   `email` VARCHAR(50) NULL DEFAULT NULL,
