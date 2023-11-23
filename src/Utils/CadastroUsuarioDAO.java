@@ -1,4 +1,7 @@
-import org.jetbrains.annotations.NotNull;
+package src.Utils;
+
+import src.Entities.User.Usuario;
+import src.Main.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,15 +16,15 @@ public class CadastroUsuarioDAO {
     }
 
     // Create
-    public void adiciona(@NotNull Usuario usuario) {
-        if (usuarioJaExiste(usuario.getidUser())) {
-            System.out.println("Usuário com id " + usuario.getidUser() + " já existe na tabela.");
+    public void adiciona(Usuario usuario) {
+        if (usuarioJaExiste(usuario.getIdUser())) {
+            System.out.println("Usuário com id " + usuario.getIdUser() + " já existe na tabela.");
             return;
         }
         String sql = "INSERT INTO Usuario(idUser, userLevel, cpf, email, nome, senha) VALUES(?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, usuario.getidUser());
+            stmt.setInt(1, usuario.getIdUser());
             stmt.setInt(2, usuario.getUserLevel());
             stmt.setString(3, usuario.getCpf());
             stmt.setString(4, usuario.getEmail());
@@ -36,7 +39,7 @@ public class CadastroUsuarioDAO {
     }
 
     private boolean usuarioJaExiste(int idUser) {
-    // Verifica se o usuário já existe no banco de dados
+        // Verifica se o usuário já existe no banco de dados
         String sql = "SELECT COUNT(*) FROM usuario WHERE idUser = ?";
         try { PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, idUser);
@@ -58,7 +61,7 @@ public class CadastroUsuarioDAO {
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
                 Usuario user = new Usuario();
-                user.setidUser(resultSet.getInt("idUser"));
+                user.setIdUser(resultSet.getInt("idUser"));
                 user.setUserLevel(resultSet.getInt("userLevel"));
                 user.setCpf(resultSet.getString("cpf"));
                 user.setEmail(resultSet.getString("email"));
@@ -78,7 +81,7 @@ public class CadastroUsuarioDAO {
         try { PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, idUser); ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) { Usuario user = new Usuario();
-                user.setidUser(resultSet.getInt("idUser"));
+                user.setIdUser(resultSet.getInt("idUser"));
                 user.setUserLevel(resultSet.getInt("userLevel"));
                 user.setCpf(resultSet.getString("cpf"));
                 user.setEmail(resultSet.getString("email"));
@@ -97,14 +100,14 @@ public class CadastroUsuarioDAO {
     }
 
     // Update
-    public void atualiza(@NotNull Usuario p) {
+    public void atualiza(Usuario p) {
         String sql = "UPDATE usuario SET cpf = ?, email = ?, nome = ?, senha = ? WHERE idUser = ?";
         try { PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, p.getCpf());
             stmt.setString(2, p.getEmail());
             stmt.setString(3, p.getNome());
             stmt.setString(4, p.getSenha());
-            stmt.setInt(5, p.getidUser());
+            stmt.setInt(5, p.getIdUser());
             stmt.executeUpdate();
             stmt.close();
             System.out.println("Usuário atualizado com sucesso!");
@@ -134,7 +137,7 @@ public class CadastroUsuarioDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.executeUpdate();
             stmt.close();
-            System.out.println("Tabela Usuario limpa com sucesso!");
+            System.out.println("Tabela Usuário limpa com sucesso!");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -146,6 +149,7 @@ public class CadastroUsuarioDAO {
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultSet = stmt.executeQuery();
+
             if (resultSet.next()) {
                 return resultSet.getInt("proximoId");
             } else {
@@ -155,4 +159,6 @@ public class CadastroUsuarioDAO {
             throw new RuntimeException(e);
         }
     }
+
+
 }

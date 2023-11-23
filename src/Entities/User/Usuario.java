@@ -1,10 +1,19 @@
+package src.Entities.User;
+
+import src.Main.Main;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Usuario {
+
     private int idUser, userLevel;
     private String cpf, nome, email, senha;
-    public int getidUser() {
+
+    public int getIdUser() {
         return idUser;
     }
-    public void setidUser(int idUser) {
+    public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
     public int getUserLevel() { return userLevel; }
@@ -33,8 +42,27 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public static List<Usuario> usuarios = new ArrayList<>();
+
+    public static Usuario criarUsuario() {
+        Usuario usuario = new Usuario();
+        System.out.println("Informe o CPF:");
+        usuario.setCpf(Main.sc.next());
+        System.out.println("Informe o nome:");
+        usuario.setNome(Main.sc.next());
+        System.out.println("Informe o e-mail:");
+        usuario.setEmail(Main.sc.next());
+        System.out.println("Informe a senha:");
+        usuario.setSenha(Main.sc.next());
+
+        usuarios.add(usuario);
+
+        return usuario;
+    }
+
     @Override
     public String toString() {
-        return new StringBuilder().append("ID: ").append(idUser).append(", Nível: ").append(userLevel).append(", CPF: ").append(cpf).append(", Nome: ").append(nome).append(", Email: ").append(email).append(", Senha: ").append(senha).toString();
+        return "ID: " + idUser + ", CPF: " + cpf + ", Nome: " + nome + ", Email: " + email + ", Senha: " + senha;
     }
 }
