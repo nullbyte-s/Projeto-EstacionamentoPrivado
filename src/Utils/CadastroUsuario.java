@@ -41,14 +41,13 @@ public class CadastroUsuario {
                 System.out.printf("Você escolheu cadastrar %s.\n", StrEscolha[escolherUsuario - 2]);
 
                 usuario = switch (escolherUsuario) {
-                    case 2 -> new UsuarioPremium(1);
-                    case 3 -> new Funcionario(2);
-                    case 4 -> new Admin(3);
+                    case 2 -> new UsuarioPremium();
+                    case 3 -> new Funcionario();
+                    case 4 -> new Admin();
                     default -> usuario;
                 };
                 usuario.setIdUser(proximoIdUser);
                 break;
-
             default:
                 System.out.println("Opção inválida. Cadastrando como Usuário Comum.\n");
         }
@@ -56,7 +55,7 @@ public class CadastroUsuario {
         String[] campos = {"CPF", "nome", "e-mail", "senha"};
 
         for (String campo : campos) {
-            System.out.print("Informe o " + campo + ": ");
+            System.out.print(campo + ": ");
             String valor = sc.next();
             switch (campo) {
                 case "CPF":
@@ -79,19 +78,24 @@ public class CadastroUsuario {
         cadastroUsuarioDAO.adiciona(usuario);
 
         switch (usuario) {
-            case Admin admin -> administradores.add(admin);
-            case Funcionario funcionario -> funcionarios.add(funcionario);
-            case UsuarioPremium usuarioPremium -> usuariosPremium.add(usuarioPremium);
+            case Admin admin -> {
+                administradores.add(admin);
+                cadastroUsuarioDAO.adicionaAdmin(admin);
+            }
+            case Funcionario funcionario -> {
+                funcionarios.add(funcionario);
+                cadastroUsuarioDAO.adicionaFuncionario(funcionario);
+            }
+            case UsuarioPremium usuarioPremium -> {
+                usuariosPremium.add(usuarioPremium);
+                cadastroUsuarioDAO.adicionaPremium(usuarioPremium);
+            }
             case null, default -> {
             }
         }
 
         return usuario;
     }
-
-//    public static void cadastrarUsuario() {
-//        cadastrarUsuario();
-//    }
 
     public static void listarPessoas() {
         ArrayList<Usuario> usuarios = cadastroUsuarioDAO.listar();
@@ -160,21 +164,12 @@ public class CadastroUsuario {
         return cadastroUsuarioDAO.gerarId();
     }
 
-    public static boolean verificarCPF(String cpfLogin) {
-        for (Usuario usuario : CadastroUsuario.getUsuarios()) {
-            if (usuario.getCpf().equals(cpfLogin)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean verificarSenha(String cpf, String senha) {
-        for (Usuario usuario : getUsuarios()) {
-            if (usuario.getCpf().equals(cpf) && usuario.getSenha().equals(senha)) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    public static boolean verificarSenha(String cpf, String senha) {
+//        for (Usuario usuario : getUsuarios()) {
+//            if (usuario.getCpf().equals(cpf) && usuario.getSenha().equals(senha)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 }

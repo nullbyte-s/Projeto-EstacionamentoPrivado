@@ -1,18 +1,21 @@
 package src.Entities.User;
 
-public class Admin extends Usuario {
-    private int userLevel;
+import src.Utils.CadastroUsuarioDAO;
 
-    public Admin(int userLevel) {
-        this.userLevel = userLevel;
+public class Admin extends Usuario {
+    private int idAdm;
+
+    public Admin() {
+        CadastroUsuarioDAO cadastroUsuarioDAO = new CadastroUsuarioDAO();
+        this.idAdm = cadastroUsuarioDAO.gerarId("admin", "idAdm");
     }
 
-    public int getUserLevelAdm(){return userLevel;}
-    public void setUserLevelAdm(int userLevel){
-        this.userLevel = userLevel;
+    public int getidAdm(){return idAdm;}
+    public void setIdAdm(int idAdm){
+        this.idAdm = idAdm;
     }
     @Override
     public String toString(){
-        return super.toString() + ", Nível de acesso: " + userLevel + ", Tipo: ADMIN";
+        return super.toString() + ", ID Administrador: " + idAdm + ", Tipo: ADMIN";
     }
 }

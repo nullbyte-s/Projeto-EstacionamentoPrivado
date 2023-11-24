@@ -10,6 +10,25 @@ public class Main {
 
     public static Scanner sc;
 
+    public static void imprimirOpcoes(String tipo) {
+        switch (tipo) {
+            case "ADMIN":
+                System.out.println("Cadastrar: (1) Veículo\nListar: (2) Pessoas | (3) Veículos\nVerificar: (4) Placa do Veículo\nConta: (5) Logout\n");
+                break;
+
+            case "FUNCIONARIO":
+                System.out.println("Verificar: (4) Placa do Veículo\nConta: (5) Logout\n");
+                break;
+
+            case "usuario PREMIUM":
+                System.out.println("Cadastrar: (1) Veículo\nConta: (5) Logout\n");
+                break;
+
+            default:
+                System.out.println("Cadastrar: (1) Veículo\nConta: (5) Logout\n");
+        }
+    }
+
     public static void main(String[] args) {
         int repetir = 0;
 
@@ -49,67 +68,47 @@ public class Main {
 
                 System.out.println("Digite o seu idUser: ");
                 idLogin=sc.nextInt();
+
                 System.out.println("Digite a sua senha: ");
                 String senhaLogin = sc.next();
 
                 Usuario usuario = CadastroUsuario.buscarPorId(idLogin);
 
-                if (usuario != null) {
-                    int userLevel = usuario.getUserLevel();
-                    System.out.println("O userLevel do usuário encontrado é: " + userLevel);
-                    break;
-                } else {
-                    System.out.println("Usuário não encontrado.");
-                }
-
                 if (usuario != null && usuario.getSenha().equals(senhaLogin)){
-                    String tipo = "Usuário Comum";
 
-                    int userLevel = usuario.getUserLevel();
-                    switch (userLevel) {
-                        case 0:
-                            break;
-                        case 1:
-                            tipo = "Usuário PREMIUM";
-                            UsuarioPremium usuarioPremium = new UsuarioPremium(userLevel);
-                            break;
-                        case 2:
-                            tipo = "FUNCIONARIO";
-//                            Funcionario funcionario = new Funcionario(userLevel);
-                            break;
-                        case 3:
-                            tipo = "ADMIN";
-                            Admin admin = new Admin(userLevel);
-                            break;
-                        default:
-                            System.out.println("Tipo de usuário desconhecido.");
+                    String tipo = "Usuario Comum";
+
+                    switch (usuario) {
+                        case Admin admin -> tipo = "ADMIN";
+                        case Funcionario funcionario -> tipo = "FUNCIONARIO";
+                        case UsuarioPremium usuarioPremium -> tipo = "usuario PREMIUM";
+                        case null, default -> {
+                        }
                     }
 
                     System.out.printf("Login como %s realizado com sucesso! %n", tipo);
-
                     System.out.println("\nPor favor, escolha uma das opções a seguir.\n");
-                    System.out.println("Cadastrar: (1) Veículo\nListar: (2) Pessoas | (3) Veículos\nVerificar: (4) Placa do Veículo\nConta: (5) Logout\n");
+
+                    imprimirOpcoes(tipo);
                     int escolha = sc.nextInt();
+
                     switch (escolha) {
                         case 1:
-                            Carro carro = new Carro(idLogin);
-                            CadastroVeiculo.cadastrarVeiculo(carro);
+                            if ("ADMIN".equals(tipo) || "usuario PREMIUM".equals(tipo)) {
+                                Carro carro = new Carro(idLogin);
+                                CadastroVeiculo.cadastrarVeiculo(carro);
+                            } else {
+                                System.out.println("Opção inválida para este tipo de usuário.");
+                            }
                             break;
                         case 2:
-                            CadastroUsuario.listarPessoas();
+                            if ("ADMIN".equals(tipo) || "FUNCIONARIO".equals(tipo)) {
+                                CadastroUsuario.listarPessoas();
+                            } else {
+                                System.out.println("Opção inválida para este tipo de usuário.");
+                            }
                             break;
-                        case 3:
-                            CadastroVeiculo.listarVeiculos();
-                            break;
-                        case 4:
-                            System.out.println("Informe a placa do carro: ");
-                            String placaVerificar = sc.next();
-
-                            if (CadastroVeiculo.verificarPlaca(placaVerificar))
-                                System.out.println("O carro com a placa " + placaVerificar + " está cadastrado.");
-                            else
-                                System.out.println("O carro com a placa " + placaVerificar + " não está cadastrado.");
-                            break;
+                        // TODO: Adicionar cases para outras ações
                         case 5:
                             break;
                         default:
@@ -125,7 +124,7 @@ public class Main {
                 System.out.flush();
                 continue;
             }
-            System.out.println("Para ver novamente, digite 0");
+            System.out.println("\nPara ver novamente, digite 0");
             repetir = sc.nextInt();
         } while (repetir==0);
     }

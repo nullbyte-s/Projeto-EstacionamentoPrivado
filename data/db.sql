@@ -13,7 +13,6 @@ USE `EstacionamentoPrivado` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `EstacionamentoPrivado`.`Usuario` (
   `idUser` INT NOT NULL,
-  `userLevel` INT NULL DEFAULT NULL,
   `cpf` VARCHAR(20) NULL DEFAULT NULL,
   `nome` VARCHAR(50) NULL DEFAULT NULL,
   `email` VARCHAR(50) NULL DEFAULT NULL,
@@ -56,6 +55,57 @@ CREATE TABLE IF NOT EXISTS `EstacionamentoPrivado`.`Carro` (
   CONSTRAINT `fk_Carro_Modelo`
     FOREIGN KEY (`idMod`)
     REFERENCES `EstacionamentoPrivado`.`Modelo` (`idMod`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+-- -----------------------------------------------------
+-- Tabela `EstacionamentoPrivado`.`Admin`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `EstacionamentoPrivado`.`Admin` (
+  `idAdm` INT NOT NULL,
+  `idUser` INT NOT NULL,
+  PRIMARY KEY (`idAdm`, `idUser`),
+  INDEX `fk_Admin_Usuario_idx` (`idUser` ASC) VISIBLE,
+  CONSTRAINT `fk_Admin_Usuario`
+    FOREIGN KEY (`idUser`)
+    REFERENCES `EstacionamentoPrivado`.`Usuario` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+-- -----------------------------------------------------
+-- Tabela `EstacionamentoPrivado`.`UsuarioPremium`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `EstacionamentoPrivado`.`UsuarioPremium` (
+  `idPre` INT NOT NULL,
+  `idUser` INT NOT NULL,
+  PRIMARY KEY (`idPre`, `idUser`),
+  INDEX `fk_UsuarioPremium_Usuario_idx` (`idUser` ASC) VISIBLE,
+  CONSTRAINT `fk_UsuarioPremium_Usuario`
+    FOREIGN KEY (`idUser`)
+    REFERENCES `EstacionamentoPrivado`.`Usuario` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+-- -----------------------------------------------------
+-- Tabela `EstacionamentoPrivado`.`Funcionario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `EstacionamentoPrivado`.`Funcionario` (
+  `idFunc` INT NOT NULL,
+  `idUser` INT NOT NULL,
+  PRIMARY KEY (`idFunc`, `idUser`),
+  INDEX `fk_Funcionario_Usuario_idx` (`idUser` ASC) VISIBLE,
+  CONSTRAINT `fk_Funcionario_Usuario`
+    FOREIGN KEY (`idUser`)
+    REFERENCES `EstacionamentoPrivado`.`Usuario` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

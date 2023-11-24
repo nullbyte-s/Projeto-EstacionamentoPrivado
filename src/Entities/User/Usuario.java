@@ -16,8 +16,6 @@ public class Usuario {
     public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
-    public int getUserLevel() { return userLevel; }
-    public void setUserLevel(int userLevel) { this.userLevel = userLevel; }
     public String getCpf() {
         return cpf;
     }

@@ -1,22 +1,19 @@
 package src.Entities.User;
 
+import src.Utils.CadastroUsuarioDAO;
+
 public class Funcionario extends Usuario {
-    private int userLevel;
+    private int idFunc;
 
-    public Funcionario(int userLevel) {
-        this.userLevel = userLevel;
+    public Funcionario() {
+        CadastroUsuarioDAO cadastroUsuarioDAO = new CadastroUsuarioDAO();
+        this.idFunc = cadastroUsuarioDAO.gerarId("funcionario", "idFunc");
     }
 
-    public int getUserLevelFunc() {
-        return userLevel;
-    }
-
-    public void setUserLevelFunc(int userLevel) {
-        this.userLevel = userLevel;
-    }
-
+    public int getIdFunc(){return idFunc;}
+    public void setIdFunc(int idFunc){this.idFunc = idFunc;}
     @Override
     public String toString() {
-        return super.toString() + ", Nível de acesso: " + userLevel + ", Tipo: FUNCIONARIO";
+        return super.toString() + ", ID Funcionário: " + idFunc + ", Tipo: FUNCIONARIO";
     }
 }
