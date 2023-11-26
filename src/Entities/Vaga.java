@@ -3,6 +3,7 @@ package src.Entities;
 import java.util.ArrayList;
 
 public class Vaga {
+    public int idP;
     private String numero;
     private boolean disponivel;
     private String razaoIndisponibilidade;

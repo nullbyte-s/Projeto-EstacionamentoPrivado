@@ -4,6 +4,8 @@ import src.Entities.*;
 import src.Entities.User.*;
 import src.Utils.CadastroUsuario;
 import src.Utils.CadastroVeiculo;
+import src.Utils.FuncoesAdmin;
+import src.Utils.FuncoesUsuario;
 
 import java.util.Scanner;
 public class Main {
@@ -13,19 +15,22 @@ public class Main {
     public static void imprimirOpcoes(String tipo) {
         switch (tipo) {
             case "ADMIN":
-                System.out.println("Cadastrar: (1) Veículo\nListar: (2) Pessoas | (3) Veículos\nVerificar: (4) Placa do Veículo\nConta: (5) Logout\n");
+                FuncoesAdmin funcoesAdmin = new FuncoesAdmin();
+                funcoesAdmin.painelAdmin(sc);
                 break;
 
             case "FUNCIONARIO":
-                System.out.println("Verificar: (4) Placa do Veículo\nConta: (5) Logout\n");
+                System.out.println("Cadastrar: (1) Veículo\nListar: (2) Pessoas | (3) Veículos\nVerificar: (4) Placa do Veículo\nConta: (5) Logout\n");
                 break;
 
             case "usuario PREMIUM":
-                System.out.println("Cadastrar: (1) Veículo\nConta: (5) Logout\n");
+                System.out.println("Cadastrar: (1) Veículo\nListar: (3) Veículos\nVerificar: (4) Placa do Veículo\nConta: (5) Logout\n");
                 break;
 
             default:
-                System.out.println("Cadastrar: (1) Veículo\nConta: (5) Logout\n");
+                FuncoesUsuario funcoesUsuario = new FuncoesUsuario();
+                funcoesUsuario.painelUsuario(sc.nextInt());
+                break;
         }
     }
 
@@ -86,16 +91,15 @@ public class Main {
                         }
                     }
 
-                    System.out.printf("Login como %s realizado com sucesso! %n", tipo);
-                    System.out.println("\nPor favor, escolha uma das opções a seguir.\n");
+                    System.out.printf("Login como %s realizado com sucesso! %n", tipo,"\n");
 
                     imprimirOpcoes(tipo);
                     int escolha = sc.nextInt();
 
                     switch (escolha) {
                         case 1:
-                            if ("ADMIN".equals(tipo) || "usuario PREMIUM".equals(tipo)) {
-                                Carro carro = new Carro(idLogin);
+                            if ("FUNCIONARIO".equals(tipo) || "usuario PREMIUM".equals(tipo)) {
+                                Carro carro = new Carro();
                                 CadastroVeiculo.cadastrarVeiculo(carro);
                             } else {
                                 System.out.println("Opção inválida para este tipo de usuário.");
@@ -108,7 +112,6 @@ public class Main {
                                 System.out.println("Opção inválida para este tipo de usuário.");
                             }
                             break;
-                        // TODO: Adicionar cases para outras ações
                         case 5:
                             break;
                         default:

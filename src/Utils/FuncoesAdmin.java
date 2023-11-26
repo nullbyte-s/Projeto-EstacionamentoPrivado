@@ -1,59 +1,65 @@
 package src.Utils;
 
 import src.Entities.Cartao;
-import src.Entities.User.Usuario;
 import src.Entities.Vaga;
 
 import java.util.Scanner;
 
 import static src.Entities.Cartao.cartoesCadastrados;
-import static src.Entities.User.Usuario.usuarios;
 import static src.Entities.Vaga.vagas;
 import static src.Main.Main.sc;
 
 public class FuncoesAdmin {
 
-    public void parkLogSistema (Scanner sc) {
-        System.out.println("---------- Bem-vindo(a) ao Sistema Administrativo do Estacionamento ----------");
-        System.out.println();
-        System.out.println("Digite uma das opções abaixo para prosseguir.");
-        System.out.println();
-        System.out.println("(1) Criar src.Entities.Vaga(s) / (2) Editar src.Entities.Vaga(s) / (3) Deletar src.Entities.Vaga(s) / (4) Monitorar src.Entities.Vaga(s) / (5) Listar Usuário(s)");
-        System.out.println("-> ");
+    public void painelAdmin(Scanner sc) {
+        System.out.println("---------- Bem-vindo(a) ao Sistema Administrativo do Estacionamento ----------\n");
+        System.out.println("\nDigite uma das opções abaixo para prosseguir.\n");
+        System.out.println("(1) Criar Vaga(s) | (2) Editar Vaga(s) | (3) Deletar Vaga(s) | (4) Monitorar Vaga(s)");
+        System.out.println("(5) Listar Usuário(s) | (6) Listar Vaga(s) | (7) Listar Cartão(ões)\n-> ");
         int opcaoAdm = sc.nextInt();
         switch (opcaoAdm) {
             case 1:
-                System.out.println("Você escolheu a opção: Criar src.Entities.Vaga(s).");
+                System.out.println("Você escolheu a opção: Criar Vaga(s).");
                 System.out.println();
                 System.out.println("Informe o número de vagas a serem criadas: ");
-
                 criarVagas();
                 break;
             case 2:
-                System.out.println("Você escolheu a opção: Editar src.Entities.Vaga(s).");
+                System.out.println("Você escolheu a opção: Editar Vaga(s).");
                 System.out.println();
                 editarVagaSistema();
                 break;
             case 3:
-                System.out.println("Você escolheu a opção: Deletar src.Entities.Vaga(s).");
+                System.out.println("Você escolheu a opção: Deletar Vaga(s).");
                 System.out.println();
                 deletarVaga();
                 break;
             case 4:
-                System.out.println("Você escolheu a opção: Monitorar src.Entities.Vaga(s).");
+                System.out.println("Você escolheu a opção: Monitorar Vaga(s).");
                 System.out.println();
                 monitorarVaga();
                 break;
             case 5:
                 System.out.println("Você escolheu a opção: Listar Usuário(s).");
                 System.out.println();
-                listarUsuarios();
+                CadastroUsuario.listarPessoas();
+                break;
+            case 6:
+                System.out.println("Você escolheu a opção: Listar Vaga(s).");
+                System.out.println();
+                listarVagas();
+                break;
+            case 7:
+                System.out.println("Você escolheu a opção: Listar Cartão(ões).");
+                System.out.println();
+                listarCartoes();
                 break;
             default:
                 System.out.println("Opção inválida.");
                 break;
         }
     }
+
     public void criarVagas() {
 
         System.out.println("Digite a quantidade de vagas a serem criadas:");
@@ -75,7 +81,7 @@ public class FuncoesAdmin {
         System.out.println("Vagas criadas com sucesso!");
     }
     public void editarVagaSistema() {
-        System.out.println("Você escolheu a opção: Editar src.Entities.Vaga(s).");
+        System.out.println("Você escolheu a opção: Editar Vaga(s).");
         System.out.println();
         System.out.println("Digite o número da vaga que deseja editar:");
         String numeroVaga = sc.next();
@@ -88,18 +94,18 @@ public class FuncoesAdmin {
 
             if (opcao == 1) {
                 vaga.desocuparVaga();
-                System.out.println("src.Entities.Vaga tornada disponível com sucesso!");
+                System.out.println("Vaga ficou disponível com sucesso!");
             } else if (opcao == 2) {
                 System.out.println("Digite a razão da indisponibilidade da vaga:");
                 sc.nextLine();
                 String razao = sc.nextLine();
                 vaga.ocuparVaga(razao);
-                System.out.println("src.Entities.Vaga tornada indisponível com sucesso!");
+                System.out.println("Vaga ficou indisponível com sucesso!");
             } else {
                 System.out.println("Opção inválida.");
             }
         } else {
-            System.out.println("src.Entities.Vaga não encontrada.");
+            System.out.println("Vaga não encontrada.");
         }
     }
 
@@ -116,9 +122,9 @@ public class FuncoesAdmin {
             }
         }
         if (!vagaEncontrada) {
-            System.out.println("src.Entities.Vaga não encontrada!");
+            System.out.println("Vaga não encontrada!");
         } else {
-            System.out.println("src.Entities.Vaga excluída com sucesso!");
+            System.out.println("Vaga excluída com sucesso!");
         }
     }
     public void monitorarVaga() {
@@ -134,17 +140,7 @@ public class FuncoesAdmin {
             System.out.println("-----------");
         }
     }
-    public void listarUsuarios() {
-        System.out.println("Lista de usuários cadastrados:");
 
-        if (usuarios.isEmpty()) {
-            System.out.println("Não há usuários cadastrados.");
-        } else {
-            for (Usuario usuario : usuarios) {
-                System.out.println("Nome: " + usuario.getNome() + " - ID: " + usuario.getIdUser());
-            }
-        }
-    }
     public void listarVagas() {
         System.out.println("Vagas disponíveis:");
         for (Vaga vaga : vagas) {

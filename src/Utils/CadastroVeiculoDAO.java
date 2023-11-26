@@ -1,7 +1,10 @@
 package src.Utils;
 
 import src.Entities.Carro;
-import src.Entities.Modelo;
+import src.Entities.User.Admin;
+import src.Entities.User.Funcionario;
+import src.Entities.User.Usuario;
+import src.Entities.User.UsuarioPremium;
 import src.Main.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,7 +41,6 @@ public class CadastroVeiculoDAO {
     }
 
     private boolean carroJaExiste(int idUser) {
-        // Verifica se o usuário já existe no banco de dados
         String sql = "SELECT COUNT(*) FROM usuario WHERE idUser = ?";
         try { PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, idUser);

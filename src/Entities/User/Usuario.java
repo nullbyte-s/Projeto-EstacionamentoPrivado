@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Usuario {
 
-    private int idUser, userLevel;
+    private int idUser;
     private String cpf, nome, email, senha;
 
     public int getIdUser() {

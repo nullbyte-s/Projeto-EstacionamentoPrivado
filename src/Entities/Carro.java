@@ -1,5 +1,11 @@
 package src.Entities;
 
+import src.Entities.User.Usuario;
+import src.Main.Main;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static src.Main.Main.sc;
 
 public class Carro {
@@ -32,13 +38,22 @@ public class Carro {
         this.cor = cor;
     }
 
-    public Carro(int idUser) {
-        setIdUser(idUser);
+//    public Carro(int idUser) {
+//        setIdUser(idUser);
+//        System.out.println("Informe a Placa:");
+//        setPlaca(sc.next());
+//        System.out.println("Informe a Cor:");
+//        setCor(sc.next());
+//    }
+
+    public static Carro cadastrarCarro(int idUser) {
+        Carro carro = new Carro();
+        carro.setIdUser(idUser);
         System.out.println("Informe a Placa:");
-        setPlaca(sc.next());
+        carro.setPlaca(sc.next());
         System.out.println("Informe a Cor:");
-        setCor(sc.next());
+        carro.setCor(sc.next());
+
+        return carro;
     }
-
-
 }
