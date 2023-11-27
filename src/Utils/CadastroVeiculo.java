@@ -1,9 +1,6 @@
 package src.Utils;
 
 import src.Entities.Carro;
-import src.Entities.User.Admin;
-import src.Entities.User.Funcionario;
-import src.Entities.User.UsuarioPremium;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +16,7 @@ public class CadastroVeiculo {
         int proximoIdCar = gerarId();
         carro.cadastrarCarro(proximoIdCar);
         carros.add(carro);
-        cadastroVeiculoDAO.adiciona(carro);
+        cadastroVeiculoDAO.adicionaCarro(carro);
         System.out.println("Veículo cadastrado com sucesso!");
     }
     public static void listarVeiculos() {

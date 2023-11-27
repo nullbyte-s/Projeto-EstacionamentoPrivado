@@ -1,16 +1,11 @@
 package src.Utils;
 
 import src.Entities.Carro;
-import src.Entities.User.Admin;
-import src.Entities.User.Funcionario;
-import src.Entities.User.Usuario;
-import src.Entities.User.UsuarioPremium;
 import src.Main.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class CadastroVeiculoDAO {
     private Connection connection;
@@ -20,7 +15,7 @@ public class CadastroVeiculoDAO {
     }
 
     // Create
-    public void adiciona(Carro carro) {
+    public void adicionaCarro(Carro carro) {
         if (carroJaExiste(carro.getIdCar())) {
             System.out.println("Carro com id " + carro.getIdCar() + " já existe na tabela.");
             return;

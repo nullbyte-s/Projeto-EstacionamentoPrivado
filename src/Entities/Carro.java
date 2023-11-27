@@ -51,6 +51,8 @@ public class Carro {
         carro.setIdUser(idUser);
         System.out.println("Informe a Placa:");
         carro.setPlaca(sc.next());
+        System.out.println("Informe o Modelo:");
+        //TODO: Criar uma lógica para verificar se o modelo já existe na tabela "modelo" e, se existir, obter o idMod; se não, iniciar o cadastro do modelo. Ao final, o idMod deve ser obtido para atribuir na chave estrangeira da tabela "carro".
         System.out.println("Informe a Cor:");
         carro.setCor(sc.next());
 

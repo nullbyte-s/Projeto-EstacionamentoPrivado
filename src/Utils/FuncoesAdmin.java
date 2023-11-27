@@ -11,8 +11,8 @@ import static src.Main.Main.sc;
 
 public class FuncoesAdmin {
 
-    public void painelAdmin(Scanner sc) {
-        System.out.println("---------- Bem-vindo(a) ao Sistema Administrativo do Estacionamento ----------\n");
+    public void painelAdmin() {
+        System.out.println("\n---------- Bem-vindo(a) ao Sistema Administrativo do Estacionamento ----------\n");
         System.out.println("\nDigite uma das opções abaixo para prosseguir.\n");
         System.out.println("(1) Criar Vaga(s) | (2) Editar Vaga(s) | (3) Deletar Vaga(s) | (4) Monitorar Vaga(s)");
         System.out.println("(5) Listar Usuário(s) | (6) Listar Vaga(s) | (7) Listar Cartão(ões)\n-> ");

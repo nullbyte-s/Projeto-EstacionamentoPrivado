@@ -16,7 +16,7 @@ import static src.Main.Main.sc;
 public class FuncoesUsuario {
 
     public static void painelUsuario(int idUser){
-        System.out.println("---------- Bem-vindo(a) ao Sistema de Vagas do Estacionamento ----------\n");
+        System.out.println("\n---------- Bem-vindo(a) ao Sistema de Vagas do Estacionamento ----------\n");
         System.out.println("\nDigite uma das opções abaixo para prosseguir.\n");
         System.out.println("(1) Visualizar Vaga(s) | (2) Editar Vaga(s) | (3) Cadastrar Veículo(s)\n");
         System.out.println("(4) Cadastrar Cartão(ões) | (5) Escolher forma(s) de pagamento\n-> ");
@@ -32,8 +32,8 @@ public class FuncoesUsuario {
                 int escolhaUsuario = sc.nextInt();
                 if (escolhaUsuario == 1){
                     System.out.println("Você escolheu a opção: Agendar vaga(s).\n");
-//                    Criar o método agendarVaga
-//                    agendarVaga(int idUser, int idCar);
+//                    Finalizar o método agendarVaga
+//                    agendarVaga(idUser, int idCar);
                 } else if (escolhaUsuario == 2){
                     System.out.println("Você escolheu a opção: Cancelar.");
                     //Criar uma estrutura de loop aqui para o usuário voltar quando quiser.
@@ -43,8 +43,8 @@ public class FuncoesUsuario {
                 break;
             case 2:
                 System.out.println("Você escolheu a opção: Editar Vaga(s).\n");
-//                Criar o método editarVagaUsuario
-//                editarVagaUsuario(int idUser, int idCar);
+//                Finalizar o método editarVagaUsuario
+//                editarVagaUsuario(idUser, int idCar);
                 break;
             case 3:
                 System.out.println("Você escolheu a opção: Cadastrar Veículo(s).\n");
@@ -120,7 +120,6 @@ public class FuncoesUsuario {
 
         } else {
             System.out.println("numero de vaga não existe.");
-            return;
         }
     }
     public static void agendarVaga(int idUser, int idCar) {

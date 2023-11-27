@@ -11,12 +11,13 @@ import java.util.Scanner;
 public class Main {
 
     public static Scanner sc;
+    private static int idLogin;
 
     public static void imprimirOpcoes(String tipo) {
         switch (tipo) {
             case "ADMIN":
                 FuncoesAdmin funcoesAdmin = new FuncoesAdmin();
-                funcoesAdmin.painelAdmin(sc);
+                funcoesAdmin.painelAdmin();
                 break;
 
             case "FUNCIONARIO":
@@ -29,7 +30,7 @@ public class Main {
 
             default:
                 FuncoesUsuario funcoesUsuario = new FuncoesUsuario();
-                funcoesUsuario.painelUsuario(sc.nextInt());
+                funcoesUsuario.painelUsuario(idLogin);
                 break;
         }
     }
