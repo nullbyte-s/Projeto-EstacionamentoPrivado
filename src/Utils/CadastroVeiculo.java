@@ -5,19 +5,20 @@ import src.Entities.Carro;
 import java.util.ArrayList;
 import java.util.List;
 
-import static src.Utils.CadastroUsuario.gerarId;
-
 public class CadastroVeiculo {
 
     private static List<Carro> carros = new ArrayList<>();
     static CadastroVeiculoDAO cadastroVeiculoDAO = new CadastroVeiculoDAO();
 
+    public static int gerarIdCarro() {
+        return cadastroVeiculoDAO.gerarIdCarro();
+    }
+
     public static void cadastrarVeiculo(Carro carro) {
-        int proximoIdCar = gerarId();
+        int proximoIdCar = gerarIdCarro();
         carro.cadastrarCarro(proximoIdCar);
         carros.add(carro);
         cadastroVeiculoDAO.adicionaCarro(carro);
-        System.out.println("Veículo cadastrado com sucesso!");
     }
     public static void listarVeiculos() {
         if (carros.isEmpty()) {
@@ -37,4 +38,5 @@ public class CadastroVeiculo {
         }
         return false;
     }
+
 }

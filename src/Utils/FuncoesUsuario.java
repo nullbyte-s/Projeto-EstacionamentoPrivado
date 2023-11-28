@@ -1,5 +1,6 @@
 package src.Utils;
 
+import src.Entities.Carro;
 import src.Entities.Cartao;
 import src.Entities.ParkLog;
 import src.Entities.Vaga;
@@ -21,13 +22,14 @@ public class FuncoesUsuario {
         System.out.println("(1) Visualizar Vaga(s) | (2) Editar Vaga(s) | (3) Cadastrar Veículo(s)\n");
         System.out.println("(4) Cadastrar Cartão(ões) | (5) Escolher forma(s) de pagamento\n-> ");
         int opcaoUsuario = sc.nextInt();
+        sc.nextLine();
         switch (opcaoUsuario) {
             case 1:
                 System.out.println("Você escolheu a opção: Visualizar Vaga(s).");
                 System.out.println();
                 visualizarVaga();
                 System.out.println("Escolha uma das opções para prosseguir.");
-                System.out.println("(1) Alugar vaga(s) / (2) Cancelar");
+                System.out.println("(1) Alugar vaga(s) | (2) Cancelar");
                 System.out.println("-> ");
                 int escolhaUsuario = sc.nextInt();
                 if (escolhaUsuario == 1){
@@ -48,7 +50,8 @@ public class FuncoesUsuario {
                 break;
             case 3:
                 System.out.println("Você escolheu a opção: Cadastrar Veículo(s).\n");
-                cadastrarCarro(idUser);
+                Carro carro = new Carro();
+                CadastroVeiculo.cadastrarVeiculo(carro);
                 break;
             case 4:
                 System.out.println("Você escolheu a opção: Cadastrar Cartão(ões).\n");

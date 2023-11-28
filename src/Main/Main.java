@@ -21,16 +21,15 @@ public class Main {
                 break;
 
             case "FUNCIONARIO":
-                System.out.println("Cadastrar: (1) Veículo\nListar: (2) Pessoas | (3) Veículos\nVerificar: (4) Placa do Veículo\nConta: (5) Logout\n");
+                System.out.println("\nCadastrar: (1) Veículo\nListar: (2) Pessoas | (3) Veículos\nVerificar: (4) Placa do Veículo\nConta: (5) Logout\n");
                 break;
 
             case "usuario PREMIUM":
-                System.out.println("Cadastrar: (1) Veículo\nListar: (3) Veículos\nVerificar: (4) Placa do Veículo\nConta: (5) Logout\n");
+                System.out.println("\nCadastrar: (1) Veículo\nListar: (3) Veículos\nVerificar: (4) Placa do Veículo\nConta: (5) Logout\n");
                 break;
 
             default:
-                FuncoesUsuario funcoesUsuario = new FuncoesUsuario();
-                funcoesUsuario.painelUsuario(idLogin);
+                System.out.println("\nPainel do Usuário: (3)\nConta: (5) Logout\n");
                 break;
         }
     }
@@ -43,7 +42,6 @@ public class Main {
         do {
             System.out.println("\n---------- Bem-vindo(a) ao Estacionamento ----------\n\nPrimeiro acesso? (1) Sim | (2) Não -> ");
             int primeiroAcesso = sc.nextInt();
-            int idLogin = 0;
 
             if (primeiroAcesso == 1) {
                 System.out.println();
@@ -92,16 +90,16 @@ public class Main {
                         }
                     }
 
-                    System.out.printf("Login como %s realizado com sucesso! %n", tipo,"\n");
+                    System.out.printf("\nLogin como %s realizado com sucesso! %n", tipo,"\n");
 
                     imprimirOpcoes(tipo);
                     int escolha = sc.nextInt();
+                    sc.nextLine();
 
                     switch (escolha) {
                         case 1:
                             if ("FUNCIONARIO".equals(tipo) || "usuario PREMIUM".equals(tipo)) {
-                                Carro carro = new Carro();
-                                CadastroVeiculo.cadastrarVeiculo(carro);
+                                // TODO: atribuir ações em comum a esses usuários
                             } else {
                                 System.out.println("Opção inválida para este tipo de usuário.");
                             }
@@ -109,6 +107,14 @@ public class Main {
                         case 2:
                             if ("ADMIN".equals(tipo) || "FUNCIONARIO".equals(tipo)) {
                                 CadastroUsuario.listarPessoas();
+                            } else {
+                                System.out.println("Opção inválida para este tipo de usuário.");
+                            }
+                            break;
+                        case 3:
+                            if ("Usuario Comum".equals(tipo) || "usuario PREMIUM".equals(tipo)) {
+                                FuncoesUsuario funcoesUsuario = new FuncoesUsuario();
+                                funcoesUsuario.painelUsuario(idLogin);
                             } else {
                                 System.out.println("Opção inválida para este tipo de usuário.");
                             }
