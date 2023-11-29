@@ -2,6 +2,9 @@ package src.Utils;
 
 import src.Entities.Cartao;
 import src.Entities.Vaga;
+import src.Entities.ParkLog;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.Scanner;
 
@@ -164,5 +167,21 @@ public class FuncoesAdmin {
                 System.out.println("Tipo: " + cartao.getTipo() + ", Número: " + cartao.getNumero());
             }
         }
+    }
+    
+    public List<String> infoGeralParkLog(List<ParkLog> parkLogs) {
+        List<String> infoGeralParklog = new ArrayList<>();
+
+        for (ParkLog log : parkLogs) {
+            String detalhe = "ID: " + log.getIdPkLog() +
+                    ", User ID: " + log.getIdP() +
+                    ", Car ID: " + log.getIdCar() +
+                    ", Data emitida: " + log.getData_emitida() +
+                    ", Data entrada: " + log.getData_entrada() +
+                    ", Data saída: " + log.getData_saida() +
+                    ", Valor: " + log.getValor();
+            infoGeralParklog.add(detalhe);
+        }
+        return infoGeralParklog;
     }
 }

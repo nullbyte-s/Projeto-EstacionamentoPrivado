@@ -1,10 +1,12 @@
 package src.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import src.Entities.Carro;
 import src.Entities.Cartao;
 import src.Entities.ParkLog;
 import src.Entities.Vaga;
-
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
@@ -15,6 +17,7 @@ import static src.Entities.Vaga.vagas;
 import static src.Main.Main.sc;
 
 public class FuncoesUsuario {
+    private static List<ParkLog> parkLogs = new ArrayList<>();
 
     public static void painelUsuario(int idUser){
         System.out.println("\n---------- Bem-vindo(a) ao Sistema de Vagas do Estacionamento ----------\n");
@@ -51,7 +54,7 @@ public class FuncoesUsuario {
             case 3:
                 System.out.println("Você escolheu a opção: Cadastrar Veículo(s).\n");
                 Carro carro = new Carro();
-                CadastroVeiculo.cadastrarVeiculo(carro);
+                CadastroVeiculo.cadastrarVeiculo(carro, idUser);
                 break;
             case 4:
                 System.out.println("Você escolheu a opção: Cadastrar Cartão(ões).\n");
@@ -133,27 +136,69 @@ public class FuncoesUsuario {
 
         if (vagaEscolhida != null) {
             if (vagaEscolhida.Disponivel()) {
-                System.out.println("Digite a data para o agendamento (DD/MM/AAAA):");
-                String dataAgendamento = sc.next();
-                System.out.println("Vaga agendada com sucesso para " + dataAgendamento);
-                LocalDateTime now = LocalDateTime.now();
-
-                //TODO criar parklog, com idUser e idCar crie um novo parklog com os mesmos e as datas com o construtor
-
-                // Em desenvolvimento
-                ParkLog novoParkLog = new ParkLog(0,
-                        0.0f,
-                        vagaEscolhida.idP,
-                        idCar);
+//                [:OLD]
+//                System.out.println("Digite a data para o agendamento (DD/MM/AAAA):");
+//                String dataAgendamento = sc.next();
+//                System.out.println("Vaga agendada com sucesso para " + dataAgendamento);
+//                LocalDateTime now = LocalDateTime.now();
+//
+//                //TODO criar parklog, com idUser e idCar crie um novo parklog com os mesmos e as datas com o construtor
+//
+//                // Em desenvolvimento
+//                ParkLog novoParkLog = new ParkLog(0,
+//                        0.0f,
+//                        vagaEscolhida.idP,
+//                        idCar);
+//                [OLD]
 
                 // TODO: Adicionar o novo ParkLog a uma lista e armazenar na tabela correspondente do BD
                 // parkLogs.add(novoParkLog);
+                
+                LocalDateTime dataEntrada = LocalDateTime.now();
+                ParkLog novoParkLog = new ParkLog(0.0f, idUser, idCar);
+                novoParkLog.setData_entrada(dataEntrada);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+                String dataFormatada = dataEntrada.format(formatter);
+                System.out.println("Vaga agendada com sucesso. Data: " + dataFormatada);
 
             } else {
                 System.out.println("A vaga escolhida não está disponível para agendamento.");
             }
         } else {
             System.out.println("Vaga não encontrada.");
+        }
+    }
+
+    public static void sairDaVaga() {
+        System.out.println("Vagas já alugadas ou agendadas:");
+
+        for (ParkLog registro : parkLogs) {
+            if (registro.getData_entrada() != null && registro.getData_saida() == null) {
+                System.out.println("- Vaga: " + registro.getIdPkLog());
+            }
+        }
+
+        System.out.println("Escolha o número da vaga para sair:");
+        int numeroVagaEscolhida = sc.nextInt();
+
+        ParkLog registroEscolhido = null;
+        for (ParkLog registro : parkLogs) {
+            if (registro.getIdPkLog() == numeroVagaEscolhida) {
+                registroEscolhido = registro;
+                break;
+            }
+        }
+
+        if (registroEscolhido != null) {
+            LocalDateTime dataSaida = LocalDateTime.now();
+            registroEscolhido.setData_saida(dataSaida);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            String dataFormatada = dataSaida.format(formatter);
+
+            System.out.println("Saída da vaga " + numeroVagaEscolhida + " registrada com sucesso. Data de saída: " + dataFormatada);
+        } else {
+            System.out.println("Vaga escolhida não encontrada nos registros.");
         }
     }
 

@@ -36,17 +36,15 @@ public class CadastroVeiculoDAO {
     public void adicionaCarro(Carro carro) {
         try {
             // Em desenvolvimento
+
             Modelo ultimoModelo = modelosCadastrados.get(modelosCadastrados.size() - 1);
-            int idMod = ultimoModelo.getIdMod();
+            int idMod = gerarIdModelo();
+            adicionaModelo(new Modelo(idMod, ultimoModelo.getMarca(), ultimoModelo.getAno(), ultimoModelo.getModelo()));
 
             if (carroJaExiste(carro.getIdCar())) {
                 System.out.println("Carro com id " + carro.getIdCar() + " já existe na tabela.");
                 return;
             }
-
-            int proximoIdModelo = gerarIdModelo();
-
-            adicionaModelo(new Modelo(proximoIdModelo, ultimoModelo.getMarca(), ultimoModelo.getAno(), ultimoModelo.getModelo()));
 
             String sql = "INSERT INTO Carro(idCar, idUser, idMod, placa, cor) VALUES(?,?,?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(sql);

@@ -34,11 +34,7 @@ public class Carro {
         this.cor = cor;
     }
 
-    public int getIdMod() {
-        return idMod;
-    }
-
-    private void setIdMod(int idMod) {
+    public void setIdMod(int idMod) {
         this.idMod = idMod;
     }
 
@@ -50,17 +46,7 @@ public class Carro {
         return sc.nextInt();
     }
 
-    public static Carro cadastrarCarro(int idUser) {
-        //TODO: Criar uma lógica para verificar se o modelo já existe na tabela "modelo" e,
-        // se existir, obter o idMod; se não, iniciar o cadastro do modelo. Ao final, o idMod
-        // deve ser obtido para atribuir na chave estrangeira da tabela "carro".
-
-        Carro carro = new Carro();
-        carro.setIdUser(idUser);
-
-        System.out.println("Informe a Placa:");
-        carro.setPlaca(sc.next());
-
+    public static int obterIdMod() {
         System.out.println("Informe o Modelo:");
         String nomeModelo = sc.next();
         int idMod = Modelo.buscarIdPorNome(nomeModelo);
@@ -76,12 +62,21 @@ public class Carro {
             modelosCadastrados.add(novoModelo);
             idMod = novoModelo.getIdMod();
         }
+        return idMod;
+    }
 
-        carro.setIdMod(idMod);
+    public static Carro cadastrarCarro() {
+        Carro carro = new Carro();
+
+        System.out.println("Informe a Placa:");
+        carro.setPlaca(sc.next());
 
         System.out.println("Informe a Cor:");
         carro.setCor(sc.next());
 
+        carro.setIdMod(obterIdMod());
+
         return carro;
     }
+
 }

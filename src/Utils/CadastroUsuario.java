@@ -164,12 +164,4 @@ public class CadastroUsuario {
         return cadastroUsuarioDAO.gerarId();
     }
 
-//    public static boolean verificarSenha(String cpf, String senha) {
-//        for (Usuario usuario : getUsuarios()) {
-//            if (usuario.getCpf().equals(cpf) && usuario.getSenha().equals(senha)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
 }

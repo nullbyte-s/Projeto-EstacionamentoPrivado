@@ -1,9 +1,7 @@
 package src.Main;
 
-import src.Entities.*;
 import src.Entities.User.*;
 import src.Utils.CadastroUsuario;
-import src.Utils.CadastroVeiculo;
 import src.Utils.FuncoesAdmin;
 import src.Utils.FuncoesUsuario;
 
@@ -16,8 +14,7 @@ public class Main {
     public static void imprimirOpcoes(String tipo) {
         switch (tipo) {
             case "ADMIN":
-                FuncoesAdmin funcoesAdmin = new FuncoesAdmin();
-                funcoesAdmin.painelAdmin();
+                System.out.println("\nPainel Administrativo: (2) Acessar\nConta: (5) Logout\n");
                 break;
 
             case "FUNCIONARIO":
@@ -29,7 +26,7 @@ public class Main {
                 break;
 
             default:
-                System.out.println("\nPainel do Usuário: (3)\nConta: (5) Logout\n");
+                System.out.println("\nPainel do Usuário: (3) Acessar\nConta: (5) Logout\n");
                 break;
         }
     }
@@ -100,13 +97,15 @@ public class Main {
                         case 1:
                             if ("FUNCIONARIO".equals(tipo) || "usuario PREMIUM".equals(tipo)) {
                                 // TODO: atribuir ações em comum a esses usuários
+                                CadastroUsuario.listarPessoas();
                             } else {
                                 System.out.println("Opção inválida para este tipo de usuário.");
                             }
                             break;
                         case 2:
                             if ("ADMIN".equals(tipo) || "FUNCIONARIO".equals(tipo)) {
-                                CadastroUsuario.listarPessoas();
+                                FuncoesAdmin funcoesAdmin = new FuncoesAdmin();
+                                funcoesAdmin.painelAdmin();
                             } else {
                                 System.out.println("Opção inválida para este tipo de usuário.");
                             }
