@@ -2,11 +2,13 @@ package src.Utils;
 
 import src.Entities.Carro;
 import src.Entities.Modelo;
+import src.Entities.User.Usuario;
 import src.Main.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static src.Entities.Modelo.modelosCadastrados;
 
@@ -61,8 +63,6 @@ public class CadastroVeiculoDAO {
         }
     }
 
-
-
     private boolean carroJaExiste(int idUser) {
         String sql = "SELECT COUNT(*) FROM carro WHERE idCar = ?";
         try { PreparedStatement stmt = connection.prepareStatement(sql);
@@ -74,6 +74,28 @@ public class CadastroVeiculoDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public ArrayList<Carro> listar() {
+        ArrayList<Carro> carros = new ArrayList<>();
+        String sql = "SELECT idCar, idUser, idMod, placa, cor FROM carro";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                Carro carro = new Carro();
+                carro.setIdCar(resultSet.getInt("idCar"));
+                carro.setIdUser(resultSet.getInt("idUser"));
+                carro.setIdMod(resultSet.getInt("idMod"));
+                carro.setPlaca(resultSet.getString("placa"));
+                carro.setCor(resultSet.getString("cor"));
+                carros.add(carro);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return carros;
     }
 
     public int gerarIdCarro() {

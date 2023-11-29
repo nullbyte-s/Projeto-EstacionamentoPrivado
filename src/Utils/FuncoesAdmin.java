@@ -18,43 +18,40 @@ public class FuncoesAdmin {
         System.out.println("\n---------- Bem-vindo(a) ao Sistema Administrativo do Estacionamento ----------\n");
         System.out.println("\nDigite uma das opções abaixo para prosseguir.\n");
         System.out.println("(1) Criar Vaga(s) | (2) Editar Vaga(s) | (3) Deletar Vaga(s) | (4) Monitorar Vaga(s)");
-        System.out.println("(5) Listar Usuário(s) | (6) Listar Vaga(s) | (7) Listar Cartão(ões)\n-> ");
+        System.out.println("(5) Listar Usuário(s) | (6) Listar Veículo(s) | (7) Listar Vaga(s) | (8) Listar Cartão(ões)\n-> ");
         int opcaoAdm = sc.nextInt();
         switch (opcaoAdm) {
             case 1:
-                System.out.println("Você escolheu a opção: Criar Vaga(s).");
-                System.out.println();
+                System.out.println("Você escolheu a opção: Criar Vaga(s).\n");
                 System.out.println("Informe o número de vagas a serem criadas: ");
                 criarVagas();
                 break;
             case 2:
-                System.out.println("Você escolheu a opção: Editar Vaga(s).");
-                System.out.println();
+                System.out.println("Você escolheu a opção: Editar Vaga(s).\n");
                 editarVagaSistema();
                 break;
             case 3:
-                System.out.println("Você escolheu a opção: Deletar Vaga(s).");
-                System.out.println();
+                System.out.println("Você escolheu a opção: Deletar Vaga(s).\n");
                 deletarVaga();
                 break;
             case 4:
-                System.out.println("Você escolheu a opção: Monitorar Vaga(s).");
-                System.out.println();
+                System.out.println("Você escolheu a opção: Monitorar Vaga(s).\n");
                 monitorarVaga();
                 break;
             case 5:
-                System.out.println("Você escolheu a opção: Listar Usuário(s).");
-                System.out.println();
+                System.out.println("Você escolheu a opção: Listar Usuário(s).\n");
                 CadastroUsuario.listarPessoas();
                 break;
             case 6:
-                System.out.println("Você escolheu a opção: Listar Vaga(s).");
-                System.out.println();
-                listarVagas();
+                System.out.println("Você escolheu a opção: Listar Veículo(s).\n");
+                CadastroVeiculo.listarVeiculos();
                 break;
             case 7:
-                System.out.println("Você escolheu a opção: Listar Cartão(ões).");
-                System.out.println();
+                System.out.println("Você escolheu a opção: Listar Vaga(s).\n");
+                listarVagas();
+                break;
+            case 8:
+                System.out.println("Você escolheu a opção: Listar Cartão(ões).\n");
                 listarCartoes();
                 break;
             default:
@@ -84,8 +81,7 @@ public class FuncoesAdmin {
         System.out.println("Vagas criadas com sucesso!");
     }
     public void editarVagaSistema() {
-        System.out.println("Você escolheu a opção: Editar Vaga(s).");
-        System.out.println();
+        System.out.println("Você escolheu a opção: Editar Vaga(s).\n");
         System.out.println("Digite o número da vaga que deseja editar:");
         String numeroVaga = sc.next();
 

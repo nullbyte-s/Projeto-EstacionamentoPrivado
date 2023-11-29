@@ -14,19 +14,19 @@ public class Main {
     public static void imprimirOpcoes(String tipo) {
         switch (tipo) {
             case "ADMIN":
-                System.out.println("\nPainel Administrativo: (2) Acessar\nConta: (5) Logout\n");
+                System.out.println("\nPainel Administrativo: (1) Acessar\nConta: (5) Logout\n");
                 break;
 
             case "FUNCIONARIO":
-                System.out.println("\nCadastrar: (1) Veículo\nListar: (2) Pessoas | (3) Veículos\nVerificar: (4) Placa do Veículo\nConta: (5) Logout\n");
+                System.out.println("\nÁrea do Funcionário: (1) Acessar\nConta: (5) Logout\n");
                 break;
 
             case "usuario PREMIUM":
-                System.out.println("\nCadastrar: (1) Veículo\nListar: (3) Veículos\nVerificar: (4) Placa do Veículo\nConta: (5) Logout\n");
+                System.out.println("\nÁrea do Usuário Premium: (1) Acessar\nConta: (5) Logout\n");
                 break;
 
             default:
-                System.out.println("\nPainel do Usuário: (3) Acessar\nConta: (5) Logout\n");
+                System.out.println("\nÁrea do Usuário: (2) Acessar\nConta: (5) Logout\n");
                 break;
         }
     }
@@ -95,14 +95,7 @@ public class Main {
 
                     switch (escolha) {
                         case 1:
-                            if ("FUNCIONARIO".equals(tipo) || "usuario PREMIUM".equals(tipo)) {
-                                // TODO: atribuir ações em comum a esses usuários
-                                CadastroUsuario.listarPessoas();
-                            } else {
-                                System.out.println("Opção inválida para este tipo de usuário.");
-                            }
-                            break;
-                        case 2:
+                            // TODO: relacionar ações em comum e distintas adequadamente
                             if ("ADMIN".equals(tipo) || "FUNCIONARIO".equals(tipo)) {
                                 FuncoesAdmin funcoesAdmin = new FuncoesAdmin();
                                 funcoesAdmin.painelAdmin();
@@ -110,10 +103,17 @@ public class Main {
                                 System.out.println("Opção inválida para este tipo de usuário.");
                             }
                             break;
-                        case 3:
+                        case 2:
                             if ("Usuario Comum".equals(tipo) || "usuario PREMIUM".equals(tipo)) {
                                 FuncoesUsuario funcoesUsuario = new FuncoesUsuario();
                                 funcoesUsuario.painelUsuario(idLogin);
+                            } else {
+                                System.out.println("Opção inválida para este tipo de usuário.");
+                            }
+                            break;
+                        case 3:
+                            if ("FUNCIONARIO".equals(tipo) || "usuario PREMIUM".equals(tipo)) {
+                                // Em desenvolvimento
                             } else {
                                 System.out.println("Opção inválida para este tipo de usuário.");
                             }
